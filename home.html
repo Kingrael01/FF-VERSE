@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>HOME</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="logo.png">
+
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff36a"/>
+      <stop offset="35%" stop-color="#ffc400"/>
+      <stop offset="100%" stop-color="#ff6500"/>
+    </linearGradient>
+
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#c8d0dc"/>
+      <stop offset="100%" stop-color="#747d8c"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Logo background -->
+  <path
+    d="M55 250L125 170L215 188L285 112L405 150L600 72L795 150L915 112L985 188L1075 170L1145 250L1075 330L985 312L915 388L795 350L600 428L405 350L285 388L215 312L125 330Z"
+    fill="#090a12"
+    stroke="url(#gold)"
+    stroke-width="12"
+    filter="url(#glow)"
+  />
+
+  <!-- Crown -->
+  <path
+    d="M535 112L565 45L600 91L635 45L665 112L650 135L550 135Z"
+    fill="#0a0a0d"
+    stroke="url(#gold)"
+    stroke-width="9"
+  />
+
+  <path
+    d="M550 135H650"
+    stroke="#ffc400"
+    stroke-width="10"
+  />
+
+  <!-- FF -->
+  <text
+    x="505"
+    y="315"
+    text-anchor="end"
+    font-family="Impact, Arial Black, sans-serif"
+    font-size="210"
+    font-weight="900"
+    font-style="italic"
+    fill="url(#gold)"
+    stroke="#2b1600"
+    stroke-width="16"
+    paint-order="stroke"
+  >FF</text>
+
+  <!-- VERSE -->
+  <text
+    x="500"
+    y="315"
+    font-family="Impact, Arial Black, sans-serif"
+    font-size="190"
+    font-weight="900"
+    font-style="italic"
+    fill="url(#silver)"
+    stroke="#090a12"
+    stroke-width="15"
+    paint-order="stroke"
+  >VERSE</text>
+
+  <!-- Speed effects -->
+  <path
+    d="M85 370L260 330L170 365L275 350L115 405Z"
+    fill="url(#gold)"
+  />
+
+  <path
+    d="M925 350L1030 365L940 370L1115 405L955 350Z"
+    fill="url(#gold)"
+  />
+
+  <!-- Bottom emblem -->
+  <path
+    d="M455 385L515 365L555 382L600 360L645 382L685 365L745 385L680 402L650 425L600 405L550 425L520 402Z"
+    fill="#0a0a0d"
+    stroke="url(#gold)"
+    stroke-width="8"
+  />
+
+  <text
+    x="600"
+    y="417"
+    text-anchor="middle"
+    font-family="Arial Black, sans-serif"
+    font-size="58"
+    font-weight="900"
+    fill="url(#gold)"
+  >F</text>
+
+</svg>
+
+
+<img
+    id="userAvatar"
+    class="user-avatar"
+    alt="Your avatar"
+>
+
+<style>
+.user-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #00eaff;
+}
+</style>
+
+<script>
+const savedAvatar = localStorage.getItem("ffverseAvatar");
+
+if (savedAvatar) {
+    document.getElementById("userAvatar").src = savedAvatar;
+} else {
+    document.getElementById("userAvatar").src =
+        "https://via.placeholder.com/55";
+}
+</script>
+
+
+
+
+<style>
+  button{
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    padding: 14px 30px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 200, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.5);
+}
+
+
+    .nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+    
+
+    
+  
+</style>
+
+
+    <h1 style="color: red;">FFVERSE</h1>
+    <p style="color: #FFFFFF;">Welcome to FFVERSE!</p>
+    <button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+    <a href="search.html">
+      <br>
+      SEARCH </button></a>  
+    <button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>
+    <a href="sensi.html"> 
+      <br>
+    SENSI</button></a>
+   <button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-177 23q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm120-160q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm200 0q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm120 160q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"/></svg>
+    <a href="hud.html">
+      <br>
+      HUDS </button>
+    </a>
+
+<a href="redeem.html">
+  <button>🎁REDEEM CODES🎁</button>
+</a>
+
+<div>
+    <h1 style="color: #FFFFFF;">The kind of <b style="color: red;">SHOTS</b> you get after using the SENSI N HUDS </h1>
+    <video src="Video Project (1).mp4" height="300" autoplay muted loop></video>
+</div>
+<div>
+  <h1 style="color: #FFFFFF;">WORKS ON ALL POWER OF <strong>DRAGS!</strong></h1>
+  <video src="Video Project (3).mp4" height="300" autoplay muted loop></video>
+</div>
+
+<div>
+  <h1 style="color: #FFFFFF;">GIVES YOU THE POWER TO MAKE FANTASTIC CLIPS!</h1>
+  <video src="Video Project (2).mp4" height="300" autoplay muted loop></video>
+
+</div>
+  
+</body>
+</html>

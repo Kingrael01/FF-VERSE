@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF Sensitivity Generator</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: #0d0d0f;
+    color: #f2f2f2;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 420px; margin: 0 auto; }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 4px;
+  }
+  p.sub {
+    text-align: center;
+    color: #9a9a9a;
+    font-size: 13px;
+    margin: 0 0 24px;
+  }
+  label {
+    font-size: 13px;
+    color: #b5b5b5;
+    display: block;
+    margin: 14px 0 6px;
+  }
+  select, button {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #2c2c30;
+    background: #1a1a1d;
+    color: #f2f2f2;
+    font-size: 15px;
+  }
+  button {
+    margin-top: 18px;
+    background: #ff5a1f;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:active { opacity: 0.85; }
+  #results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .card {
+    background: #1a1a1d;
+    border: 1px solid #2c2c30;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .card p.label {
+    font-size: 12px;
+    color: #9a9a9a;
+    margin: 0 0 4px;
+  }
+  .card p.value {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    color: #ff5a1f;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Free Fire sensitivity generator</h1>
+  <p class="sub">Works for any phone — pick a playstyle and generate settings</p>
+
+  <label for="style">Playstyle</label>
+  <select id="style">
+    <option value="rusher">Rusher (aggressive, close range)</option>
+    <option value="balanced" selected>Balanced</option>
+    <option value="sniper">Sniper (long range)</option>
+  </select>
+
+  <label for="screen">Screen size</label>
+  <select id="screen">
+    <option value="small">Small phone (under 6")</option>
+    <option value="normal" selected>Normal phone (6"-6.7")</option>
+    <option value="large">Large phone / phablet (6.7"+)</option>
+  </select>
+
+  <button id="gen">Generate sensitivity</button>
+
+  <div id="results"></div>
+</div>
+
+<script>
+  const ranges = {
+    rusher:   { general:[85,100], redDot:[85,100], scope2x:[65,90], scope4x:[45,75], sniper:[15,40], freeLook:[85,100] },
+    balanced: { general:[70,95],  redDot:[70,95],  scope2x:[55,85], scope4x:[45,80], sniper:[25,55], freeLook:[75,100] },
+    sniper:   { general:[55,80],  redDot:[55,80],  scope2x:[45,75], scope4x:[35,70], sniper:[35,70], freeLook:[65,95] }
+  };
+
+  const screenAdjust = { small: 3, normal: 0, large: -3 };
+
+  const labels = {
+    general: 'General',
+    redDot: 'Red dot',
+    scope2x: '2x scope',
+    scope4x: '4x scope',
+    sniper: 'Sniper scope',
+    freeLook: 'Free look'
+  };
+
+  function rand(min, max) {
+    return Math.max(1, Math.min(100, Math.round(min + Math.random() * (max - min))));
+  }
+
+  function generate() {
+    const style = document.getElementById('style').value;
+    const screen = document.getElementById('screen').value;
+    const adj = screenAdjust[screen];
+    const r = ranges[style];
+    const results = document.getElementById('results');
+    results.innerHTML = '';
+
+    Object.keys(r).forEach(key => {
+      const [min, max] = r[key];
+      const value = rand(min + adj, max + adj);
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML =
+        '<p class="label">' + labels[key] + '</p>' +
+        '<p class="value">' + value + '</p>';
+      results.appendChild(card);
+    });
+  }
+
+  document.getElementById('gen').addEventListener('click', generate);
+  document.getElementById('style').addEventListener('change', generate);
+  document.getElementById('screen').addEventListener('change', generate);
+  generate();
+</script>
+</body>
+</html>

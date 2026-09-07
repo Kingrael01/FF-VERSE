@@ -1,0 +1,48 @@
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+
+html{
+    background-color: black;
+    color: white;
+    font-family: Poppins, sans-serif;
+    text-align: center;
+}
+
+button{
+    border-radius: 5px;
+    background-color: #ff7200;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 200px;
+}
+
+.btn {
+  background-color: #ff8c00;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px; /* Automatically spaces logo, text, and buttons apart */
+  margin: 0;
+}
+

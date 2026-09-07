@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Upload | FFVERSE</title>
+	<style>
+		:root {
+			--ink: #f7f9ff;
+			--muted: #a9b0c2;
+			--panel: rgba(17, 20, 32, 0.92);
+			--line: rgba(255, 255, 255, 0.13);
+			--cyan: #00eaff;
+			--orange: #ff8c00;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 24px;
+			color: var(--ink);
+			background:
+				radial-gradient(circle at 15% 10%, rgba(0, 234, 255, 0.14), transparent 35%),
+				radial-gradient(circle at 90% 90%, rgba(255, 140, 0, 0.13), transparent 35%),
+				#080a11;
+			font-family: Arial, sans-serif;
+		}
+
+		.upload-shell {
+			width: min(100%, 720px);
+			padding: clamp(24px, 5vw, 48px);
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			background: var(--panel);
+			box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+		}
+
+		.eyebrow {
+			margin: 0 0 8px;
+			color: var(--cyan);
+			font-size: 0.78rem;
+			font-weight: 700;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+		}
+
+		h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.4rem); }
+
+		.intro { margin: 12px 0 28px; color: var(--muted); line-height: 1.5; }
+
+		.drop-zone {
+			display: grid;
+			min-height: 230px;
+			place-items: center;
+			padding: 24px;
+			border: 2px dashed rgba(0, 234, 255, 0.5);
+			border-radius: 14px;
+			background: rgba(0, 234, 255, 0.04);
+			text-align: center;
+			cursor: pointer;
+			transition: 180ms ease;
+		}
+
+		.drop-zone:hover, .drop-zone.is-dragging { border-color: var(--cyan); background: rgba(0, 234, 255, 0.1); }
+		.drop-zone.has-image { min-height: 0; padding: 12px; }
+		.drop-zone strong { display: block; margin-bottom: 8px; font-size: 1.1rem; }
+		.drop-zone span { color: var(--muted); font-size: 0.9rem; }
+		#fileInput { display: none; }
+
+		#preview { display: none; width: 100%; max-height: 360px; object-fit: contain; border-radius: 9px; }
+		.has-image #preview { display: block; }
+		.has-image .drop-copy { display: none; }
+
+		.field { display: block; margin-top: 20px; color: var(--muted); font-size: 0.88rem; font-weight: 700; }
+		textarea {
+			width: 100%;
+			min-height: 92px;
+			margin-top: 8px;
+			padding: 13px;
+			resize: vertical;
+			border: 1px solid var(--line);
+			border-radius: 9px;
+			outline: none;
+			color: var(--ink);
+			background: rgba(255, 255, 255, 0.06);
+			font: inherit;
+		}
+		textarea:focus { border-color: var(--cyan); }
+
+		.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+		button, .back-link {
+			min-height: 44px;
+			padding: 0 20px;
+			border: 0;
+			border-radius: 8px;
+			font-weight: 700;
+			cursor: pointer;
+			text-decoration: none;
+		}
+		button[type="submit"] { color: #071018; background: var(--orange); }
+		button[type="submit"]:disabled { cursor: not-allowed; opacity: 0.45; }
+		.back-link { display: inline-grid; place-items: center; color: var(--ink); border: 1px solid var(--line); }
+		#status { min-height: 22px; margin: 16px 0 0; color: var(--muted); }
+		#status.error { color: #ff8e8e; }
+		#status.success { color: #7dffcc; }
+
+		@media (max-width: 480px) {
+			.actions > * { width: 100%; }
+		}
+	</style>
+</head>
+<body>
+	<main class="upload-shell">
+		<p class="eyebrow">FFVERSE / Creator tools</p>
+		<h1>Share your picture</h1>
+		<p class="intro">Choose an image to use as your FFVERSE avatar. Your preview stays in this browser until you replace or clear it.</p>
+
+		<form id="uploadForm">
+			<label class="drop-zone" id="dropZone" for="fileInput">
+				<span class="drop-copy">
+					<strong>Drop an image here</strong>
+					<span>or click to browse · JPG, PNG, GIF, or WEBP · max 5 MB</span>
+				</span>
+				<img id="preview" alt="Selected image preview">
+				<input id="fileInput" type="file" accept="image/jpeg,image/png,image/gif,image/webp">
+			</label>
+
+			<label class="field" for="caption">Caption (optional)
+				<textarea id="caption" maxlength="160" placeholder="Tell the FFVERSE what we are looking at..."></textarea>
+			</label>
+
+			<div class="actions">
+				<button type="submit" id="uploadButton" disabled>Save picture</button>
+				<a class="back-link" href="home.html">Back to home</a>
+			</div>
+			<p id="status" role="status" aria-live="polite"></p>
+		</form>
+	</main>
+
+	<script>
+		const form = document.getElementById('uploadForm');
+		const fileInput = document.getElementById('fileInput');
+		const dropZone = document.getElementById('dropZone');
+		const preview = document.getElementById('preview');
+		const uploadButton = document.getElementById('uploadButton');
+		const status = document.getElementById('status');
+		let selectedFile = null;
+
+		function showStatus(message, type) {
+			status.textContent = message;
+			status.className = type || '';
+		}
+
+		function selectFile(file) {
+			if (!file) return;
+			if (!file.type.startsWith('image/')) {
+				showStatus('Please choose an image file.', 'error');
+				return;
+			}
+			if (file.size > 5 * 1024 * 1024) {
+				showStatus('That image is larger than 5 MB.', 'error');
+				return;
+			}
+
+			selectedFile = file;
+			preview.src = URL.createObjectURL(file);
+			dropZone.classList.add('has-image');
+			uploadButton.disabled = false;
+			showStatus(file.name + ' is ready to save.', '');
+		}
+
+		fileInput.addEventListener('change', () => selectFile(fileInput.files[0]));
+		['dragenter', 'dragover'].forEach(eventName => dropZone.addEventListener(eventName, event => {
+			event.preventDefault();
+			dropZone.classList.add('is-dragging');
+		}));
+		['dragleave', 'drop'].forEach(eventName => dropZone.addEventListener(eventName, event => {
+			event.preventDefault();
+			dropZone.classList.remove('is-dragging');
+		}));
+		dropZone.addEventListener('drop', event => selectFile(event.dataTransfer.files[0]));
+
+		form.addEventListener('submit', event => {
+			event.preventDefault();
+			if (!selectedFile) return;
+
+			const reader = new FileReader();
+			reader.onload = () => {
+				try {
+					localStorage.setItem('ffverseAvatar', reader.result);
+					localStorage.setItem('ffverseAvatarCaption', document.getElementById('caption').value.trim());
+					showStatus('Picture saved. Your FFVERSE avatar is updated.', 'success');
+				} catch (error) {
+					showStatus('This image could not be saved in browser storage.', 'error');
+				}
+			};
+			reader.readAsDataURL(selectedFile);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFVERSE - Sign Up</title>
+  <link rel="stylesheet" href="sign-up.css">
+</head>
+
+<body>
+
+  <div class="auth-box">
+    <h1>FFVERSE</h1>
+    <h2>Create Account</h2>
+
+
+<!-- AVATAR UPLOAD -->
+
+<div class="avatar-section">
+
+    <img
+        id="avatarPreview"
+        src="https://via.placeholder.com/120"
+        alt="Avatar"
+        class="avatar"
+    >
+
+    <label for="avatarInput" class="avatar-btn">
+        Choose Avatar
+    </label>
+
+    <input
+        type="file"
+        id="avatarInput"
+        accept="image/*"
+        hidden
+    >
+
+</div>
+
+<style>
+.avatar-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00eaff;
+    display: block;
+    margin: 0 auto 12px;
+}
+
+.avatar-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #00eaff;
+    color: #061018;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.avatar-btn:hover {
+    opacity: 0.85;
+}
+</style>
+
+<script>
+const avatarInput = document.getElementById("avatarInput");
+const avatarPreview = document.getElementById("avatarPreview");
+
+avatarInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please select an image.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        avatarPreview.src = event.target.result;
+
+        // Save avatar in browser
+        localStorage.setItem(
+            "ffverseAvatar",
+            event.target.result
+        );
+    };
+
+    reader.readAsDataURL(file);
+});
+</script>
+
+    
+    <input type="text" id="username" placeholder="Username" maxlength="12" required>
+    
+    
+<!-- EMAIL -->
+<div class="email-box">
+    <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your email"
+        autocomplete="email"
+        required
+    >
+
+    <p id="emailMessage"></p>
+</div>
+
+<style>
+.email-box {
+    margin-bottom: 15px;
+}
+
+.email-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#emailMessage {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+</style>
+
+<script>
+const email = document.getElementById("email");
+const emailMessage = document.getElementById("emailMessage");
+
+email.addEventListener("input", function () {
+
+    const value = email.value.trim();
+
+    // Basic email format check
+    const emailPattern =
+        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (value === "") {
+        emailMessage.textContent = "";
+        return;
+    }
+
+    if (emailPattern.test(value)) {
+        emailMessage.textContent = "✓ Valid email address";
+    } else {
+        emailMessage.textContent =
+            "✗ Please enter a valid email address";
+    }
+});
+</script>
+
+
+
+<!-- PASSWORD -->
+<div class="password-box">
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Create a password"
+        maxlength="12"
+        required
+    >
+
+    <button type="button" onclick="togglePassword()">👁</button>
+
+<script>
+function togglePassword() {
+    const password = document.getElementById("password");
+
+    password.type =
+        password.type === "password" ? "text" : "password";
+}
+</script>
+
+    <div class="requirements">
+        <p id="length">✗ 8+ characters</p>
+        <p id="upper">✗ Uppercase letter</p>
+        <p id="lower">✗ Lowercase letter</p>
+        <p id="number">✗ Number</p>
+        <p id="special">✗ Special character</p>
+    </div>
+
+    <div id="strength">Password strength: Weak</div>
+</div>
+
+<!-- CONFIRM PASSWORD -->
+<div class="password-box">
+    <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Confirm password"
+        maxlength="12"
+        required
+    >
+
+    <p id="match"></p>
+</div>
+
+
+
+
+<style>
+.password-box {
+    margin-bottom: 15px;
+}
+
+.password-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    box-sizing: border-box;
+}
+
+.requirements {
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.requirements p {
+    margin: 4px 0;
+}
+
+#strength {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+#match {
+    font-size: 13px;
+    font-weight: bold;
+}
+</style>
+
+
+<script>
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+
+password.addEventListener("input", checkPassword);
+confirmPassword.addEventListener("input", checkMatch);
+
+function checkPassword() {
+
+    const value = password.value;
+
+    const hasLength = value.length >= 8;
+    const hasUpper = /[A-Z]/.test(value);
+    const hasLower = /[a-z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSpecial = /[^A-Za-z0-9]/.test(value);
+
+    update("length", hasLength, "8+ characters");
+    update("upper", hasUpper, "Uppercase letter");
+    update("lower", hasLower, "Lowercase letter");
+    update("number", hasNumber, "Number");
+    update("special", hasSpecial, "Special character");
+
+    let score = 0;
+
+    if (hasLength) score++;
+    if (hasUpper) score++;
+    if (hasLower) score++;
+    if (hasNumber) score++;
+    if (hasSpecial) score++;
+
+    const strength = document.getElementById("strength");
+
+    if (score <= 2) {
+        strength.textContent = "Password strength: Weak";
+    } 
+    else if (score <= 4) {
+        strength.textContent = "Password strength: Medium";
+    } 
+    else {
+        strength.textContent = "Password strength: Strong";
+    }
+
+    checkMatch();
+}
+
+
+function update(id, valid, text) {
+
+    const element = document.getElementById(id);
+
+    if (valid) {
+        element.textContent = "✓ " + text;
+    } else {
+        element.textContent = "✗ " + text;
+    }
+}
+
+
+function checkMatch() {
+
+    const match = document.getElementById("match");
+
+    if (confirmPassword.value === "") {
+        match.textContent = "";
+        return;
+    }
+
+    if (password.value === confirmPassword.value) {
+        match.textContent = "✓ Passwords match";
+    } else {
+        match.textContent = "✗ Passwords do not match";
+    }
+}
+</script>
+
+
+
+    <button onclick="signup()">SIGN UP</button>
+
+    <p id="message"></p>
+
+    
+    <p>
+      Already have an account?
+      <a href="login.html">Login</a>
+    </p>
+
+      <p>
+      <a href="index.html">Back to Home</a>
+
+    </p>
+
+  </div>
+
+  <script src="auth.js"></script>
+
+
+

@@ -1,0 +1,18 @@
+body {
+      
+      background: #0a0a0f;
+      /* Replace this with your own background image if you want */
+      background-image: 
+        radial-gradient(ellipse at 20% 50%, rgba(40, 40, 80, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(60, 30, 90, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a12 0%, #12121f 50%, #0d0d18 100%);
+      background-size: cover;
+      background-position: center;
+    }
+
+html{
+
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+

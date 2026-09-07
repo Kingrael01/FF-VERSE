@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUDS</title>
+    <link rel="icon" href="logo.png">
+</head>
+<body>
+
+<style>
+    .feed {
+    width: 600px;
+    max-width: 95%;
+    margin: 30px auto;
+}
+
+.post {
+    background: #111;
+    color: white;
+    border: 1px solid #292929;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 12px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.post-header h3 {
+    margin: 0;
+}
+
+.post-header p {
+    margin: 3px 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.caption {
+    padding: 0 15px;
+    line-height: 1.5;
+}
+
+.post-image {
+    width: 100%;
+    display: block;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid #292929;
+}
+
+.post-actions button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.post-actions button:hover {
+    color: red;
+}
+</style>
+
+<style>
+    .comments-section {
+    width: 100%;
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 18px;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 16px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.comments-header {
+    border-bottom: 1px solid #222;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.comments-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.comments-header span {
+    color: #888;
+    font-size: 14px;
+}
+
+.comment {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+}
+
+.comment-avatar,
+.my-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #222;
+    font-weight: bold;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment-top strong {
+    font-size: 14px;
+}
+
+.comment-top span {
+    color: #777;
+    font-size: 12px;
+}
+
+.comment-content p {
+    margin: 6px 0;
+    color: #ddd;
+    font-size: 14px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.comment-actions button {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 0;
+}
+
+.comment-actions button:hover {
+    color: white;
+}
+
+.comment-input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.comment-input-wrapper {
+    flex: 1;
+    background: #181818;
+    border: 1px solid #292929;
+    border-radius: 13px;
+    padding: 8px 10px;
+}
+
+#commentInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    resize: none;
+    font-size: 14px;
+}
+
+#commentInput::placeholder {
+    color: #666;
+}
+
+.comment-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.image-upload {
+    cursor: pointer;
+    font-size: 19px;
+}
+
+.post-comment {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: #ff9d00;
+    color: #000;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.post-comment:hover {
+    transform: scale(1.05);
+}
+</style>
+
+    <h1>HUDS<h1>
+<div class="feed">
+
+    <div class="post">
+        <div class="post-header">
+            <div class="avatar">K</div>
+            <div>
+                <h3>Kingrael</h3>
+                <p>@kingrael •</p>
+            </div>
+        </div>
+
+        <p class="caption">
+            3 finger hud setup 🔥 Who wants the settings?
+            #FFHUDT6O3jV95CuFPo7eM
+        </p>
+
+        <img src="NZmJD.png" class="post-image">
+
+        <div class="post-actions">
+            <button onclick="likePost(this)">❤️ <span>0</span></button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+        </div>
+    </div>
+
+<div class="feed">
+
+    <div class="post">
+        <div class="post-header">
+            <div class="avatar">K</div>
+            <div>
+                <h3>Kingrael</h3>
+                <p>@kingrael •</p>
+            </div>
+        </div>
+
+        <p class="caption">
+            4 finger freestyle hud setup 🔥 Who wants the settings?
+            #FFHUDT6O3jV95CuFPo7eO
+        </p>
+
+        <img src="IH7kq.png" class="post-image">
+
+        <div class="post-actions">
+            <button onclick="likePost(this)">❤️ <span>0</span></button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+        </div>
+    </div>
+
+    <div class="post">
+        <div class="post-header">
+            <div class="avatar">F</div>
+            <div>
+                <h3>FFVERSE</h3>
+                <p>@ffverse • </p>
+            </div>
+        </div>
+
+        <p class="caption">
+            Drop your best HUD setup below 👇
+        </p>
+
+        <img src="" class="post-image">
+
+        <div class="post-actions">
+            <button onclick="likePost(this)">❤️ <span>0</span></button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+        </div>
+    </div>
+
+    <script>
+        function likePost(button) {
+            const likeCountSpan = button.querySelector('span');
+            let likeCount = parseInt(likeCountSpan.textContent);
+            likeCount++;
+            likeCountSpan.textContent = likeCount;
+        }
+        </script>
+
+    <link rel="stylesheet" href="feed.css">
+</div>
+
+
+
+<!--comment-->
+<section class="comments-section">
+  <h2>Comments</h2>
+
+  <!-- Comment Form -->
+  <form id="comment-form" class="comment-form">
+    <div class="form-group">
+      <input 
+        type="text" 
+        id="comment-name" 
+        placeholder="Your name" 
+        required 
+        maxlength="50"
+      >
+    </div>
+    <div class="form-group">
+      <textarea 
+        id="comment-text" 
+        placeholder="Write a comment..." 
+        required 
+        rows="4"
+        maxlength="1000"
+      ></textarea>
+    </div>
+    <button type="submit">Post Comment</button>
+  </form>
+
+  <!-- Comments List -->
+  <div id="comments-list" class="comments-list">
+    <!-- Comments will appear here -->
+  </div>
+</section>
+
+<style>
+    .comments-section {
+  max-width: 700px;
+  margin: 40px auto;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.comments-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+/* Form */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.comment-form button {
+  align-self: flex-start;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.comment-form button:hover {
+  background: #4338ca;
+}
+
+/* Comments List */
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment {
+  padding: 16px 18px;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  transition: box-shadow 0.2s;
+}
+
+.comment:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.comment-author {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.comment-time {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.comment-body {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+/* Empty state */
+.no-comments {
+  text-align: center;
+  color: #6c757d;
+  padding: 40px 20px;
+  font-size: 15px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .comments-section {
+    color: #e9ecef;
+  }
+
+  .comment-form {
+    background: #1e1e1e;
+    border-color: #333;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: #2a2a2a;
+    border-color: #444;
+    color: #e9ecef;
+  }
+
+  .comment {
+    background: #1e1e1e;
+    border-color: #333;
+  }
+
+  .comment-body {
+    color: #d1d5db;
+  }
+
+  .comment-time {
+    color: #9ca3af;
+  }
+}
+</style>
+
+<script>
+    const form = document.getElementById('comment-form');
+const commentsList = document.getElementById('comments-list');
+const nameInput = document.getElementById('comment-name');
+const textInput = document.getElementById('comment-text');
+
+// Load comments from localStorage
+function loadComments() {
+  const comments = JSON.parse(localStorage.getItem('website-comments') || '[]');
+  renderComments(comments);
+}
+
+// Save comments
+function saveComments(comments) {
+  localStorage.setItem('website-comments', JSON.stringify(comments));
+}
+
+// Format relative time
+function timeAgo(date) {
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  
+  const intervals = {
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60
+  };
+
+  for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+    const interval = Math.floor(seconds / secondsInUnit);
+    if (interval >= 1) {
+      return interval === 1 ? `1 ${unit} ago` : `${interval} ${unit}s ago`;
+    }
+  }
+  return 'Just now';
+}
+
+// Render comments
+function renderComments(comments) {
+  if (comments.length === 0) {
+    commentsList.innerHTML = `<div class="no-comments">No comments yet. Be the first to comment!</div>`;
+    return;
+  }
+
+  // Newest first
+  comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  commentsList.innerHTML = comments.map(comment => `
+    <div class="comment">
+      <div class="comment-header">
+        <span class="comment-author">${escapeHtml(comment.name)}</span>
+        <span class="comment-time">${timeAgo(comment.date)}</span>
+      </div>
+      <div class="comment-body">${escapeHtml(comment.text)}</div>
+    </div>
+  `).join('');
+}
+
+// Prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Handle form submit
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const name = nameInput.value.trim();
+  const text = textInput.value.trim();
+
+  if (!name || !text) return;
+
+  const comments = JSON.parse(localStorage.getItem('website-comments') || '[]');
+
+  comments.push({
+    id: Date.now(),
+    name,
+    text,
+    date: new Date().toISOString()
+  });
+
+  saveComments(comments);
+  renderComments(comments);
+
+  // Clear form
+  nameInput.value = '';
+  textInput.value = '';
+  nameInput.focus();
+});
+
+// Initial load
+loadComments();
+</script>
+
+ <a href="upload.html" class="upload-link">Upload your HUD</a>
+
+
+
+</body>
+</html>       

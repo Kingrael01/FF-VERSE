@@ -1,0 +1,51 @@
+<! DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search</title>
+        <link rel="stylesheet" href="search.css">
+    </head>
+    <body>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button onclick="search()">🔍</button>
+        </div>
+
+<script>
+function search() {
+    const searchText = document.getElementById("searchInput").value;
+
+    if (searchText.trim() === "") {
+        alert("Please enter something to search.");
+        return;
+    }
+
+    console.log("Searching for:", searchText);
+}
+</script>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const posts = document.querySelectorAll(".post");
+
+searchInput.addEventListener("input", function () {
+    const searchText = this.value.toLowerCase();
+
+    posts.forEach(post => {
+        const content = post.textContent.toLowerCase();
+
+        if (content.includes(searchText)) {
+            post.style.display = "block";
+        } else {
+            post.style.display = "none";
+        }
+    });
+});
+</script>
+
+
+
+
+</body>
+</html>
